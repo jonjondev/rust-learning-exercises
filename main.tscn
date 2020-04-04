@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://wall.png" type="Texture" id=1]
 [ext_resource path="res://floor.png" type="Texture" id=2]
@@ -6,7 +6,7 @@
 [ext_resource path="res://fire.png" type="Texture" id=4]
 [ext_resource path="res://light.png" type="Texture" id=5]
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=1]
 length = 0.9
 loop = true
 tracks/0/type = "value"
@@ -36,22 +36,6 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 0, 1 ]
 }
-tracks/1/type = "value"
-tracks/1/path = NodePath("LightOccluder2D:occluder:polygon")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ PoolVector2Array( -2.98706, -7.96292, 0.981201, -7.97469, 1.0283, -6.9738, 1.9821, -6.9738, 2.05275, -2.01641, 0.978552, -2.03098, 0.95956, -2.9995, -0.00895691, -2.99001, 0.0385189, -2.02148, 0.957678, -2.0117, 0.985914, 3.01397, 0.00856972, 3.03751, 0.0439091, 8.02081, -0.992315, 8.00904, -1.03942, 3.99368, -1.99321, 4.00545, -1.99321, 7.99727, -3.00588, 7.99727, -3.01766, 2.96923, -4.00678, 3.00455, -3.99971, -7.00441, -3.02236, -6.98086 ), PoolVector2Array( -3.00241, -7.00911, 0.986345, -6.99528, 1.02913, -6.00471, 1.98699, -6.01768, 1.98492, -1.02129, 1.00704, -1.00549, 0.95956, -2.00249, 0.0100327, -2.02148, 0.0290241, -1.03397, 0.975412, -1.02995, 0.985914, 3.01397, -0.0176373, 2.99337, 0.0439091, 8.02081, -0.992315, 8.00904, -1.01935, 4.96647, -1.97687, 4.97513, -1.99321, 7.99727, -3.00588, 7.99727, -3.01766, 2.96923, -4.00678, 3.00455, -4.01228, -6.0223, -2.97857, -6.00471 ) ]
-}
-
-[sub_resource type="OccluderPolygon2D" id=1]
-cull_mode = 2
-polygon = PoolVector2Array( -3.00241, -7.00911, 0.986345, -6.99528, 1.02913, -6.00471, 1.98699, -6.01768, 1.98492, -1.02129, 1.00704, -1.00549, 0.95956, -2.00249, 0.0100327, -2.02148, 0.0290241, -1.03397, 0.975412, -1.02995, 0.985914, 3.01397, -0.0176373, 2.99337, 0.0439091, 8.02081, -0.992315, 8.00904, -1.01935, 4.96647, -1.97687, 4.97513, -1.99321, 7.99727, -3.00588, 7.99727, -3.01766, 2.96923, -4.00678, 3.00455, -4.01228, -6.0223, -2.97857, -6.00471 )
 
 [node name="Node2D" type="Node2D"]
 
@@ -70,42 +54,28 @@ scale = Vector2( 10, 10 )
 [node name="fire" type="Sprite" parent="YSort"]
 modulate = Color( 0.321569, 0.27451, 0.27451, 1 )
 position = Vector2( -1.00994, -1.51489 )
-scale = Vector2( 1, 1 )
 texture = ExtResource( 4 )
 hframes = 3
 frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="YSort/fire"]
 autoplay = "burn"
-anims/burn = SubResource( 3 )
+anims/burn = SubResource( 1 )
 
-[node name="ShadowLight" type="Light2D" parent="YSort/fire"]
+[node name="Light" type="Light2D" parent="YSort/fire"]
 position = Vector2( -1.25789, 3.29278 )
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 5 )
 color = Color( 0.654902, 0.298039, 0.0862745, 0.439216 )
-energy = 1.73
+energy = 3.21
 shadow_enabled = true
 shadow_buffer_size = 1024
 shadow_item_cull_mask = 3
 
-[node name="IlluminationLight" type="Light2D" parent="YSort/fire"]
-position = Vector2( -1.37658, 5.12524 )
-texture = ExtResource( 5 )
-texture_scale = 0.1
-color = Color( 0.654902, 0.298039, 0.0862745, 0.439216 )
-energy = 2.97
-range_item_cull_mask = 3
-shadow_color = Color( 0, 0, 0, 0.34902 )
-shadow_filter = 1
-shadow_filter_smooth = 5.0
-shadow_item_cull_mask = 2
-
 [node name="char" type="Sprite" parent="YSort"]
-modulate = Color( 0.321569, 0.321569, 0.321569, 1 )
+modulate = Color( 0.439216, 0.439216, 0.439216, 1 )
 light_mask = 3
-position = Vector2( -16.4614, 0.992035 )
-scale = Vector2( 1, 1 )
+position = Vector2( 29.5119, -1.22112 )
 texture = ExtResource( 3 )
 hframes = 8
 frame = 1
@@ -113,9 +83,3 @@ frame = 1
 [node name="AnimationPlayer" type="AnimationPlayer" parent="YSort/char"]
 autoplay = "idle"
 anims/idle = SubResource( 2 )
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="YSort/char"]
-show_behind_parent = true
-position = Vector2( 0, 0.0818176 )
-scale = Vector2( 1, 1 )
-occluder = SubResource( 1 )
